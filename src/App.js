@@ -1,25 +1,52 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './App.css';
+import HomePage from './Home';
+import SurveyComponent from './SurveyComponent';
+import HelpPage from './Help';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "bootstrap/dist/css/bootstrap.css";
+
+class App extends Component {
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <nav className="navbar navbar-default">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <a className="navbar-brand" href="/">
+                  Partner Site Assessment
+                </a>
+              </div>
+              <ul className="nav navbar-nav">
+                <li>
+                  <Link to="/survey">Survey</Link>
+                </li>
+                <li>
+                  <Link to="/help">Help</Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+  
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route path="/survey">
+              <SurveyComponent />
+            </Route>
+            <Route path="/help">
+              <HelpPage />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+
+  }
 }
 
 export default App;

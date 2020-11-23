@@ -55,7 +55,7 @@ function getScoreForCategory(responseObject, selfAsessmentParameter,selfAsessmen
               }
             
         }else{
-            scoreAnalysis.push("PS is needed to handle " + skillType +" considering the low self rating");
+            scoreAnalysis.push("Professional Services is needed to handle " + skillType +" considering the low self rating");
         }
         
 

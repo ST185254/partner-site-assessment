@@ -2,6 +2,7 @@ import * as React from "react"
 import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, Container  } from "@material-ui/core"
 import { Home } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/core/styles"
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -30,7 +31,7 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-      <Container maxWidth="lg" className={classes.navbarDisplayFlex}>
+        <Container maxWidth="lg" className={classes.navbarDisplayFlex}>
           <IconButton edge="start" color="inherit" aria-label="home">
             <Home fontSize="large" />
           </IconButton>
@@ -40,11 +41,11 @@ const Header = () => {
             className={classes.navDisplayFlex} // this
           >
             {navLinks.map(({ title, path }) => (
-              <a href={path} key={title} className={classes.linkText}>
+              <Link to={path}  key={title}  className={classes.linkText}>
                 <ListItem button>
                   <ListItemText primary={title} />
                 </ListItem>
-              </a>
+              </Link>
             ))}
           </List>
         </Container>

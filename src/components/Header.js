@@ -22,14 +22,16 @@ const useStyles = makeStyles({
 });
 
 const navLinks = [
+  { title: `home`, path: `/` },
   { title: `survey`, path: `/survey` },
   { title: `help`, path: `/help` }
+
 ]
 
 const Header = () => {
   const classes = useStyles(); 
   return (
-    <AppBar position="static">
+    <AppBar  color="primary" position="static">
       <Toolbar>
         <Container maxWidth="lg" className={classes.navbarDisplayFlex}>
           <IconButton edge="start" color="inherit" aria-label="home">

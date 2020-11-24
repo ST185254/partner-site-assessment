@@ -5,8 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom';
-
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -40,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function HomePage() {
+export default function HomePageContent() {
   const classes = useStyles();
 
   return (
@@ -65,10 +63,12 @@ function HomePage() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                <Link to="/survey">  <Button variant="contained" color="primary">
-                              Start Survey
-                            </Button>
-                  </Link>
+                  <Button variant="contained" color="primary">
+                    Start Survey
+                  </Button>
+                  <Link to="/survey">  <button className= "btn btn-primary btn-lg btn-block">
+            Start Survey </button>
+        </Link>
                 </Grid>
               </Grid>
             </div>
@@ -78,4 +78,3 @@ function HomePage() {
     </React.Fragment>
   );
 }
-  export default HomePage;

@@ -44,9 +44,8 @@ function HomePage() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      
+      <React.Fragment>
+      <CssBaseline />    
       <main>
         <div className={classes.heroContent}>
           <Container maxWidth="lg">
@@ -65,9 +64,10 @@ function HomePage() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                <Link to="/survey">  <Button variant="contained" color="primary">
-                              Start Survey
-                            </Button>
+                  <Link to="/survey">  
+                      <Button variant="contained" color="primary">
+                        Start Survey
+                      </Button>
                   </Link>
                 </Grid>
               </Grid>

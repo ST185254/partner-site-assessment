@@ -7,8 +7,9 @@ import Title from './components/Title';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
 import { makeStyles } from '@material-ui/core/styles';
+import ResponseTable from './components/ResponseTable';
+import SimpleAccordion from './components/SimpleAccordion';
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -61,21 +62,16 @@ function getScoreJsonForCategory(responseObject, selfAsessmentParameter,selfAses
                     }
                 }
               }
-            
         }
     }    
     scoreAnalysis["internalScore"] = score;
     return scoreAnalysis;
 }
 
-
-
 function getScoreForCategory(responseObject, selfAsessmentParameter,selfAsessmentParameterScore, subQuestions, skillType ){
-
     var scoreAnalysis = [];
     scoreAnalysis.push(skillType +" skills:");
     var score = 0;
-
     if(checkIfPropertyExists(responseObject, selfAsessmentParameter)){
         scoreAnalysis.push("Self assessment score: " + responseObject[selfAsessmentParameter]);
         if(responseObject[selfAsessmentParameter] > selfAsessmentParameterScore){
@@ -87,8 +83,7 @@ function getScoreForCategory(responseObject, selfAsessmentParameter,selfAsessmen
                         score+=value;
 
                     }else{
-                        //scoreAnalysis.push(questionTypes.questions.get(key) + " No");
-        
+                        //scoreAnalysis.push(questionTypes.questions.get(key) + " No");        
                     }
                 }
               }
@@ -96,8 +91,6 @@ function getScoreForCategory(responseObject, selfAsessmentParameter,selfAsessmen
         }else{
             scoreAnalysis.push("Professional Services is needed to handle " + skillType +" considering the low self rating");
         }
-        
-
     }    
 
     scoreAnalysis.push("Internal Score : " + score);
@@ -121,7 +114,6 @@ function getScoreListComponent(resultResponses){
     var singleScores = resultResponses.map((resultResponse, i)=>{
         return getSingleScore(resultResponse, i);
     });
-
     return( <div>
         {singleScores}
     </div>);
@@ -133,13 +125,10 @@ function getSingleScore(resultResponse, i){
         <div key={i}>
             <p> {resultResponse}</p>
         </div>
-
     );
 }
 
 function getStringResult(responseObject){
-
-    
     var resultString  =  [];
     var resultResponses = [] ;
     for(var i=0; i<questionTypes.questionsInOrder.length; i++){
@@ -148,30 +137,8 @@ function getStringResult(responseObject){
             resultResponses.push({question: questionTypes.questions.get(questionTypes.questionsInOrder[i]), response: responseObject[questionTypes.questionsInOrder[i]] });
         }
     }
-    return getResultListComponent(resultResponses);
+    return  <SimpleAccordion mainHeading="Result" subHeading="Expand to view completely"> < ResponseTable responses = {resultResponses} /> </SimpleAccordion> ;
 }
-
-function getResultListComponent(resultResponses){
-    var singleResponses = resultResponses.map((resultResponse, i)=>{
-        return getSingleResult(resultResponse, i);
-    });
-
-    return( <div>
-        {singleResponses}
-    </div>);
-
-}
-
-function getSingleResult(resultResponse, i){
-    return(
-        <div key={i}>
-            <p> Question: {resultResponse.question}</p>
-            <p> Response: {resultResponse.response}</p>
-        </div>
-
-    );
-}
-
 
 function getPackages(responseObject){
     var atoScoreJson = getScoreJsonForCategory(responseObject,  questionTypes.rankOfATOSkills, 5,questionTypes.atoAssessmentScores, "ATO" );
@@ -179,18 +146,6 @@ function getPackages(responseObject){
     var cfcScoreJson = getScoreJsonForCategory(responseObject,  questionTypes.rankConfigurationCenter, 3,questionTypes.configurationCenterAssessmentScores, "Configuration Center CFC " );
     var packagesRecommended = recommendPackages(atoScoreJson.internalScore, menuScoreJson.internalScore, cfcScoreJson.internalScore);
     return <PackageList recommendedPackages = {packagesRecommended} />;
-
-    // var packagesRecommendedComponent = packagesRecommended.map((currentPackage)=>{
-    //     return (
-    //         <div className = {classes.Box} key= {currentPackage.name}>
-    //             <p> Package Type: {currentPackage.name} </p>
-    //             <p> Description: {currentPackage.description}</p>
-    //             <p> Price: {currentPackage.price} </p>
-    //             <button> Select </button>
-    //         </div>
-    //     )
-    // })
-    // return packagesRecommendedComponent;
 }
 
 function Result (props) {
@@ -198,13 +153,9 @@ function Result (props) {
     var completeResponses =  getStringResult(responseObj);
     var packages = getPackages(responseObj);
     const classes = useStyles();
-
-    //completeResponses = null;
     return (
-
-        <React.Fragment>
+      <React.Fragment>
       <CssBaseline />
-      
       <main>
         <div className={classes.heroContent}>
           <Container maxWidth="lg">
@@ -220,8 +171,7 @@ function Result (props) {
                 {packages}
             </div>
             <div>
-                <Title> Complete Survey </Title>
-                
+                <Title> Your responses </Title>                
                 {completeResponses}
             </div>
           </Container>

@@ -1,5 +1,7 @@
 import React from "react";
+import PackageList from './components/PackageList';
 
+import {allPackages} from './packageOfferings';
 function HelpPage() {
     return (
         <div>
@@ -17,6 +19,7 @@ function HelpPage() {
             <b>Ans</b> Navigate to XYZ location to check the version number.
         </p>
     </div>
+    <PackageList recommendedPackages={allPackages}/>
         </div>
         
     );

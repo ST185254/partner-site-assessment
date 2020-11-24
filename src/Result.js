@@ -2,6 +2,7 @@ import React from 'react';
 import * as questionTypes from './questionTypes';
 import classes from './Result.module.css';
 import {recommendPackages} from './recommendPackages';
+import PackageList from './components/PackageList';
 
 function checkIfPropertyExists(responseObject, propertyName){
     return responseObject.hasOwnProperty(propertyName);
@@ -138,27 +139,26 @@ function getPackages(responseObject){
     var atoScoreJson = getScoreJsonForCategory(responseObject,  questionTypes.rankOfATOSkills, 5,questionTypes.atoAssessmentScores, "ATO" );
     var menuScoreJson = getScoreJsonForCategory(responseObject,  questionTypes.rankMenuOnline, 5,questionTypes.menuAsssessmentScores, "Menu" );
     var cfcScoreJson = getScoreJsonForCategory(responseObject,  questionTypes.rankConfigurationCenter, 3,questionTypes.configurationCenterAssessmentScores, "Configuration Center CFC " );
-    console.log(atoScoreJson.internalScore, menuScoreJson.internalScore, cfcScoreJson.internalScore);
     var packagesRecommended = recommendPackages(atoScoreJson.internalScore, menuScoreJson.internalScore, cfcScoreJson.internalScore);
+    return <PackageList recommendedPackages = {packagesRecommended} />;
 
-    var packagesRecommendedComponent = packagesRecommended.map((currentPackage)=>{
-        return (
-            <div className = {classes.Box} key= {currentPackage.name}>
-                <p> Package Type: {currentPackage.name} </p>
-                <p> Description: {currentPackage.description}</p>
-                <p> Price: {currentPackage.price} </p>
-                <button> Select </button>
-            </div>
-        )
-    })
-    return packagesRecommendedComponent;
+    // var packagesRecommendedComponent = packagesRecommended.map((currentPackage)=>{
+    //     return (
+    //         <div className = {classes.Box} key= {currentPackage.name}>
+    //             <p> Package Type: {currentPackage.name} </p>
+    //             <p> Description: {currentPackage.description}</p>
+    //             <p> Price: {currentPackage.price} </p>
+    //             <button> Select </button>
+    //         </div>
+    //     )
+    // })
+    // return packagesRecommendedComponent;
 }
 
 function Result (props) {
     var responseObj = JSON.parse(props.response);
     var completeResponses =  getStringResult(responseObj);
     var packages = getPackages(responseObj);
-    console.log(packages);
 
     completeResponses = null;
     return (

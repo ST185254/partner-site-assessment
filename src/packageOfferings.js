@@ -41,3 +41,5 @@ export const packageAtoCfcSupport = {
     description: "PS will handle the all the operations related to ATO and CFC from start to end",
     price: "Medium"
 }
+
+export const allPackages = [ packageCompleteSupport, packageCfcSupport, packageMenuSupport,  packageAtoSupport,  packageAtoCfcSupport, packageAtoMenuSupport, packageCfcMenuSupport];

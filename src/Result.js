@@ -3,7 +3,45 @@ import * as questionTypes from './questionTypes';
 import classes from './Result.module.css';
 import {recommendPackages} from './recommendPackages';
 import PackageList from './components/PackageList';
+import Title from './components/Title';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    icon: {
+      marginRight: theme.spacing(2),
+    },
+    heroContent: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(8, 0, 6),
+    },
+    heroButtons: {
+      marginTop: theme.spacing(4),
+    },
+    cardGrid: {
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(8),
+    },
+    card: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    cardMedia: {
+      paddingTop: '56.25%', // 16:9
+    },
+    cardContent: {
+      flexGrow: 1,
+    },
+    footer: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(6),
+    },
+  }));
+  
 function checkIfPropertyExists(responseObject, propertyName){
     return responseObject.hasOwnProperty(propertyName);
 }
@@ -159,26 +197,38 @@ function Result (props) {
     var responseObj = JSON.parse(props.response);
     var completeResponses =  getStringResult(responseObj);
     var packages = getPackages(responseObj);
+    const classes = useStyles();
 
-    completeResponses = null;
+    //completeResponses = null;
     return (
-        <div>
+
+        <React.Fragment>
+      <CssBaseline />
+      
+      <main>
+        <div className={classes.heroContent}>
+          <Container maxWidth="lg">
+            <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
+            Thanks for taking the pre-assessment test
+            </Typography>
+            <Typography variant="h6" align="left" color="textSecondary" paragraph>
+            The below are the results.
+            </Typography>
+            {getScores(responseObj)}   
             <div>
-                Thanks for taking the pre-assessment test. The below are the results.
-                {getScores(responseObj)}               
-            </div>
-            
-            <div>
-                Packages
+                <Title> Recommended Packages </Title>
                 {packages}
             </div>
             <div>
-                Complete Responses
+                <Title> Complete Survey </Title>
+                
                 {completeResponses}
             </div>
-
+          </Container>
         </div>
-      
+        </main>
+    </React.Fragment>
+       
     )
 }
 

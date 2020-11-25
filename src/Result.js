@@ -48,7 +48,6 @@ function checkIfPropertyExists(responseObject, propertyName){
 }
 
 function getScoreJsonForCategory(responseObject, selfAsessmentParameter,selfAsessmentParameterScore, subQuestions, skillType ){
-
     var scoreAnalysis = {};
     scoreAnalysis["skillType"] = skillType;
     var score = 0;
@@ -128,12 +127,10 @@ function getSingleScore(resultResponse, i){
     );
 }
 
-function getStringResult(responseObject){
-    var resultString  =  [];
+function getRecordedSurveyData(responseObject){
     var resultResponses = [] ;
     for(var i=0; i<questionTypes.questionsInOrder.length; i++){
         if(checkIfPropertyExists(responseObject, questionTypes.questionsInOrder[i])){
-            resultString.push( questionTypes.questions.get(questionTypes.questionsInOrder[i]) + responseObject[questionTypes.questionsInOrder[i]]);
             resultResponses.push({question: questionTypes.questions.get(questionTypes.questionsInOrder[i]), response: responseObject[questionTypes.questionsInOrder[i]] });
         }
     }
@@ -150,7 +147,7 @@ function getPackages(responseObject){
 
 function Result (props) {
     var responseObj = JSON.parse(props.response);
-    var completeResponses =  getStringResult(responseObj);
+    var completeResponses =  getRecordedSurveyData(responseObj);
     var packages = getPackages(responseObj);
     const classes = useStyles();
     return (

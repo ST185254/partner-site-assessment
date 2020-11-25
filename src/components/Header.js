@@ -34,9 +34,12 @@ const Header = () => {
     <AppBar  color="primary" position="static">
       <Toolbar>
         <Container maxWidth="lg" className={classes.navbarDisplayFlex}>
-          <IconButton edge="start" color="inherit" aria-label="home">
+          
+            <IconButton edge="start" color="inherit" aria-label="home">
             <Home fontSize="large" />
-          </IconButton>
+            {/* <Link to='/'></Link> */}
+            </IconButton>
+                   
           <List
             component="nav"
             aria-labelledby="main navigation"

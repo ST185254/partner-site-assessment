@@ -5,6 +5,7 @@ import HomePage from './Home';
 import SurveyComponent from './SurveyComponent';
 import HelpPage from './Help';
 import Header from './components/Header';
+import PackageDetail from './components/PackageDetail';
 import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
             <Route path="/help">
               <HelpPage />
             </Route>
+            <Route path="/packages/:id" component={PackageDetail}/> 
           </Switch>
         </div>
       </Router>
